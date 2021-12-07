@@ -1,0 +1,5 @@
+.idea
+mongo42/data_db
+mongo42/mongo_data/**
+rabbitmq38/var_lib_rabbitmq
+redis5/data

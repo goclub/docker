@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  rabbit:
+    image: rabbitmq:3.8-management
+    hostname: rabbit
+    container_name: "rabbitmq-38"
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - ./var_lib_rabbitmq:/var/lib/rabbitmq
