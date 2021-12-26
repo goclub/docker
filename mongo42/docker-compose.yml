@@ -1,12 +1,38 @@
-version: '3.8'
-services:
-  db:
-    image: mongo:4.2
-    container_name: mongo-42
-    restart: always
-    ports:
-      - '27017:27017'
-    command: [--auth]
-    volumes:
-      - ./data_db:/data/db
+version: '2'
 
+services:
+  mongodb-primary:
+    image: docker.io/bitnami/mongodb:4.2
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-primary
+      - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_ROOT_PASSWORD=root
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+    volumes:
+      - 'mongo42_mongo_data:/bitnami/mongodb'
+    ports:
+      - "27017:27017"
+
+  mongodb-secondary:
+    image: docker.io/bitnami/mongodb:4.2
+    depends_on:
+      - mongodb-primary
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-secondary
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_INITIAL_PRIMARY_HOST=mongodb-primary
+      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=root
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+  mongodb-arbiter:
+    image: docker.io/bitnami/mongodb:4.2
+    depends_on:
+      - mongodb-primary
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongodb-arbiter
+      - MONGODB_REPLICA_SET_MODE=arbiter
+      - MONGODB_INITIAL_PRIMARY_HOST=mongodb-primary
+      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=root
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+volumes:
+  mongo42_mongo_data:
+    driver: local

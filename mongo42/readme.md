@@ -1,26 +1,22 @@
 # mongo
 
+> 不建议在生产环境使用,因为MongoDB多文档事务需要在副本集运行,基于 docker 部署副本集 必须对 mongo和 docker有足够的经验
+> 如果一旦要在生产环境使用切记修改 docker-compose.yml 中的 `MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD` 和 `MONGODB_ROOT_PASSWORD`  `MONGODB_REPLICA_SET_KEY`
+
 ```shell
 # 启动
 docker-compose up -d
 # 进入管理cli
-docker exec -it mongo-42 mongo admin
-# 创建管理员
-db.createUser({pwd: "设置一个安全的管理员密码",  user: 'root', roles: [ { role: "root", db: "admin" } ] })
-# 退出
-exit
-
-# 进入管理cli
-docker exec -it mongo-42 mongo admin
+docker exec -it mongo42_mongodb-primary_1 mongo admin
 # 认证登录管理员
-db.auth('root', "输入刚才设置的管理员密码")
+db.auth('root', "root")
 # 创建数据库
 use goclub
 # 创建用户
-db.createUser({pwd: "设置一个安全的用户密码", user: 'goclub',  roles: [ { role: "readWrite", db: "goclub" } ] })
+db.createUser({user: 'goclub', pwd: "goclub", roles: [ { role: "readWrite", db: "goclub" } ] })
 ```
 
 ```
-# 连接地址
-mongodb://goclub:输入刚才设置的用户密码@localhost:27017/goclub?authSource=goclub&readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false
+# 本地开发阶段连接主副本地址 (注意为了本地便于测试开启了 connect=direct )
+mongodb://goclub:goclub@localhost:27017/?authSource=goclub&connect=direct
 ```
