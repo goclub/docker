@@ -1,7 +1,7 @@
 # mongo
 
-> 不建议在生产环境使用,因为MongoDB多文档事务需要在副本集运行,基于 docker 部署副本集 必须对 mongo和 docker有足够的经验
-> 如果一旦要在生产环境使用切记修改 docker-compose.yml 中的 `MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD` 和 `MONGODB_ROOT_PASSWORD`  `MONGODB_REPLICA_SET_KEY`
+> 不要生产环境使用,因为MongoDB多文档事务需要在副本集运行
+> 单机模拟的docker副本集用于生产环境是没意义的,因为生产环境的副本集的不同节点应该是不同的主机组成
 
 ```shell
 # 启动
