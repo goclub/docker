@@ -2,6 +2,7 @@ version: '2'
 
 services:
   mongodb-primary:
+    restart: always
     image: docker.io/bitnami/mongodb:4.2
     environment:
       - MONGODB_ADVERTISED_HOSTNAME=mongodb-primary
@@ -14,6 +15,7 @@ services:
       - "27017:27017"
 
   mongodb-secondary:
+    restart: always
     image: docker.io/bitnami/mongodb:4.2
     depends_on:
       - mongodb-primary
@@ -24,6 +26,7 @@ services:
       - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=root
       - MONGODB_REPLICA_SET_KEY=replicasetkey123
   mongodb-arbiter:
+    restart: always
     image: docker.io/bitnami/mongodb:4.2
     depends_on:
       - mongodb-primary
