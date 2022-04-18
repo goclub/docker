@@ -6,3 +6,4 @@
 - [MongoDB 4.2](./mongo42)
 - [RabbitMQ 3.8](./rabbitmq38)
 - [Redis 5](./redis5)
+- [Elasticsearch 8.1.2])(./es)
