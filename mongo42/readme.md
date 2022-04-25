@@ -18,5 +18,5 @@ db.createUser({user: 'goclub', pwd: "goclub", roles: [ { role: "readWrite", db: 
 
 ```
 # 本地开发阶段连接主副本地址 (注意为了本地便于测试开启了 connect=direct )
-mongodb://goclub:goclub@localhost:27017/?authSource=goclub&connect=direct
+mongodb://goclub:goclub@localhost:27017/goclub?authSource=goclub&readPreference=primary&directConnection=true&ssl=false
 ```
