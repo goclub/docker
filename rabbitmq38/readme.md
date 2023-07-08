@@ -5,10 +5,10 @@
 # 启动
 docker-compose up -d
 # 进入cli
-docker exec -it rabbitmq-38 /bin/bash
+docker exec -it rabbitmq38 /bin/bash
 
 # 命令
-rabbitmqctl add_user goclub <设置一个安全的密码> 
+rabbitmqctl add_user goclub <设置一个安全的密码>
 rabbitmqctl stop
 rabbitmqctl start_app
 ```

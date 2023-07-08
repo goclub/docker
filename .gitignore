@@ -4,3 +4,4 @@ mongo42/mongo_data/**
 rabbitmq38/var_lib_rabbitmq
 redis5/data
 es/.env
+mysql57/data
